@@ -109,7 +109,7 @@ export function AuthContextProvider({ children }) {
       if (user && !user.emailVerified) {
         navigate('/verify')
       }
-      console.log(user?.uid);
+      console.log(user?.accessToken);
       setAuthUser(user);
       setIsAuth(user ? true : false);
       setLoading(false);
