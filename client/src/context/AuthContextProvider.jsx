@@ -11,7 +11,7 @@ import {
 } from "firebase/auth";
 
 import { auth } from "../config/firebaseConfig";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext({});
 
@@ -21,6 +21,8 @@ export function AuthContextProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const email = "bbqa2.supabase@gmail.com";
   const password = "aweawe@Awe213";
+
+  const navigate = useNavigate();
 
   const signUp = async () => {
     setLoading(true);
@@ -65,6 +67,7 @@ export function AuthContextProvider({ children }) {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
+     
     } catch (error) {
       return toast.error(error.message);
     } finally {
@@ -100,7 +103,7 @@ export function AuthContextProvider({ children }) {
       value={{ signUp, signIn, signOut, authUser, isAuth, setIsAuth, loading }}
     >
       {children}
-       {loading ? <span>loading...</span> :  <Outlet />}
+      {loading ? <span>loading...</span> : <Outlet />}
     </AuthContext.Provider>
   );
 }

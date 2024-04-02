@@ -1,18 +1,16 @@
 import { Toaster } from "sonner";
 import { useAuth } from "../hook/useAuth";
 
-const SignInPage = () => {
-  const { signIn } = useAuth();
-
-
-
+const ProfilePage = () => {
+  const { authUser } = useAuth();
   return (
     <div>
       <Toaster richColors position="top-right" />
-      <h1>Sign In</h1>
-      <button onClick={signIn}>Sign In</button>
+      <h1>Profile</h1>
+      <h2>Welcome back {authUser?.email}</h2>
+
     </div>
   );
 };
 
-export default SignInPage;
+export default ProfilePage;

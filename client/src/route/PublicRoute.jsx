@@ -1,14 +1,14 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../hook/useAuth";
 
-const PrivateRoute = () => {
+const PublicRoute = () => {
   const { isAuth } = useAuth();
   const location = useLocation();
-  return isAuth ? (
+  return !isAuth ? (
     <Outlet />
   ) : (
-    <Navigate to="/sign-in" state={{ from: location }} replace />
+    <Navigate to="/" state={{ from: location }} replace />
   );
 };
 
-export default PrivateRoute;
+export default PublicRoute;
