@@ -10,7 +10,7 @@ import {
   updatePassword,
 } from "firebase/auth";
 
-import { auth } from "../config/firebaseConfig";
+import { app, auth } from "../config/firebaseConfig";
 import { Outlet, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext({});
@@ -19,16 +19,23 @@ export function AuthContextProvider({ children }) {
   const [authUser, setAuthUser] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const email = "bbqa2.supabase@gmail.com";
   const password = "aweawe@Awe213";
-
-  const navigate = useNavigate();
+  
+  const navigate = useNavigate()
 
   const signUp = async () => {
     setLoading(true);
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      await sendEmailVerification(response?.user);
 
       return toast.success("Account created successfully.");
     } catch (error) {
@@ -67,7 +74,6 @@ export function AuthContextProvider({ children }) {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-     
     } catch (error) {
       return toast.error(error.message);
     } finally {
@@ -86,10 +92,24 @@ export function AuthContextProvider({ children }) {
     }
   };
 
+  const resendEmailVerification = async () => {
+    try {
+      await sendEmailVerification(authUser);
+      return toast.success("Account created successfully.");
+    } catch (error) {
+      return toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log(user);
+      if (user && !user.emailVerified) {
+        navigate('/verify')
+      }
+      console.log(user?.uid);
       setAuthUser(user);
       setIsAuth(user ? true : false);
       setLoading(false);
@@ -100,7 +120,17 @@ export function AuthContextProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ signUp, signIn, signOut, authUser, isAuth, setIsAuth, loading }}
+      value={{
+        signUp,
+        signIn,
+        signOut,
+        resendEmailVerification,
+        authUser,
+        isAuth,
+        setIsAuth,
+        loading,
+        success,
+      }}
     >
       {children}
       {loading ? <span>loading...</span> : <Outlet />}

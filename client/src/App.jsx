@@ -17,6 +17,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 import PrivateRoute from "./route/PrivateRoute";
 import PublicRoute from "./route/PublicRoute";
+import VerifacationPage from "./pages/VerifacationPage";
 
 function App() {
   const router = createBrowserRouter(
@@ -32,7 +33,10 @@ function App() {
 
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/verify" element={<VerifacationPage />} />
           </Route>
+          
+
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Route>
