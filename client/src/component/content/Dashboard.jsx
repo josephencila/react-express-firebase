@@ -1,4 +1,4 @@
-import { useAuth } from "../../hook/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 
 const Dashboard = () => {
   const { authUser } = useAuth();

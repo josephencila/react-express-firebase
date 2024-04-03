@@ -1,6 +1,6 @@
 import Dashboard from "../component/content/Dashboard";
 import Welcome from "../component/content/Welcome";
-import { useAuth } from "../hook/useAuth";
+import { useAuth } from "../hooks/useAuth";
 
 const LandingPage = () => {
   const { isAuth } = useAuth();

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import PublicTopNavBar from "./component/navigation/PublicTopNavBar";
-import { useAuth } from "./hook/useAuth";
+import { useAuth } from "./hooks/useAuth";
 import PrivateTopNavBar from "./component/navigation/PrivateTopNavBar";
 
 const RootLayout = () => {

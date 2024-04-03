@@ -8,6 +8,7 @@ import {
   sendPasswordResetEmail,
   sendEmailVerification,
   updatePassword,
+  updateProfile,
 } from "firebase/auth";
 
 import { app, auth } from "../config/firebaseConfig";
@@ -22,7 +23,7 @@ export function AuthContextProvider({ children }) {
   const [success, setSuccess] = useState(false);
   const email = "bbqa2.supabase@gmail.com";
   const password = "aweawe@Awe213";
-  
+  const fullname = 'BBQA ADMIN'
   const navigate = useNavigate()
 
   const signUp = async () => {
@@ -34,6 +35,10 @@ export function AuthContextProvider({ children }) {
         email,
         password
       );
+
+      await updateProfile(response?.user,{
+        displayName: fullname
+      })
 
       await sendEmailVerification(response?.user);
 
@@ -109,14 +114,14 @@ export function AuthContextProvider({ children }) {
       if (user && !user.emailVerified) {
         navigate('/verify')
       }
-      console.log(user?.accessToken);
+      console.log(user?.displayName);
       setAuthUser(user);
       setIsAuth(user ? true : false);
       setLoading(false);
     });
 
     return unsubscribe;
-  }, []);
+  }, [navigate]);
 
   return (
     <AuthContext.Provider

@@ -17,9 +17,9 @@ app.use(morgan('tiny'))
 
 
 
+app.use(firebaseMW)
+app.post('/', (req, res) => {
 
-app.post('/',firebaseMW, (req, res) => {
-     console.log(req?.user)
     return res.status(200).json({ message: 'hello world!' })
 })
 

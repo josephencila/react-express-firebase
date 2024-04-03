@@ -10,7 +10,7 @@ const firebaseMW = async (req, res, next) => {
     }
 
     const token = reqHeader.split(' ')[1]
-    console.log(token)
+  
     try {
          const decoded = await admin.auth().verifyIdToken(token)
          req.user = decoded

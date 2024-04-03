@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContextProvider";
 
-
 import RootLayout from "./RootLayout";
 
 import LandingPage from "./pages/LandingPage";
@@ -17,7 +16,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 import PrivateRoute from "./route/PrivateRoute";
 import PublicRoute from "./route/PublicRoute";
-import VerifacationPage from "./pages/VerifacationPage";
+import VerificationPage from "./pages/VerificationPage";
+import { PasswordValidationProvider } from "./context/PasswordValidationContextProvider";
 
 function App() {
   const router = createBrowserRouter(
@@ -27,15 +27,18 @@ function App() {
           <Route path="/" element={<LandingPage />} />
 
           <Route element={<PublicRoute />}>
-            <Route path="/sign-up" element={<SignUpPage />} />
+            
+            <Route element={<PasswordValidationProvider />}>
+              <Route path="/sign-up" element={<SignUpPage />} />
+            </Route>
+
             <Route path="/sign-in" element={<SignInPage />} />
           </Route>
 
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/verify" element={<VerifacationPage />} />
+            <Route path="/verify" element={<VerificationPage />} />
           </Route>
-          
 
           <Route path="*" element={<NotFoundPage />} />
         </Route>

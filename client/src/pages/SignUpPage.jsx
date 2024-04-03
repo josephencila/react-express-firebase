@@ -1,6 +1,8 @@
 
 
-import { useAuth } from "../hook/useAuth";
+
+import SignUpForm from "../component/form/SignUpForm";
+import { useAuth } from "../hooks/useAuth";
 import { Toaster } from "sonner";
 
 const SignUpPage = () => {
@@ -11,10 +13,9 @@ const SignUpPage = () => {
   return (
     <div>
       <Toaster richColors position="top-right" />
-      <h1>SignUp</h1>
+   
   
-      {success && <span>NOTE:if you provided a valid email, we&apos;ve sent you a verification link.</span>}
-      <button onClick={signUp}>Sign Up</button>
+       <SignUpForm/>
      
     </div>
   );

@@ -1,5 +1,5 @@
 import { Toaster } from "sonner";
-import { useAuth } from "../hook/useAuth";
+import { useAuth } from "../hooks/useAuth";
 
 const ProfilePage = () => {
   const { authUser } = useAuth();

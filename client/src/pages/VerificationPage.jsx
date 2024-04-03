@@ -1,6 +1,6 @@
-import { useAuth } from "../hook/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import { Icon } from "@iconify/react";
-const VerifacationPage = () => {
+const VerificationPage = () => {
   const { authUser, resendEmailVerification } = useAuth();
   return (
     <div>
@@ -21,4 +21,4 @@ const VerifacationPage = () => {
   );
 };
 
-export default VerifacationPage;
+export default VerificationPage;
