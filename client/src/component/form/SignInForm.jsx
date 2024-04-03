@@ -7,15 +7,16 @@ import * as z from "zod";
 import { Icon } from "@iconify/react";
 
 import { useAuth } from "../../hooks/useAuth";
+import { Toaster } from "sonner";
 
 const SignInForm = () => {
-  const { signIn } = useAuth();
+  const { signIn, loading } = useAuth();
 
   const [togglePwd, setTogglePwd] = useState(false);
 
   const [user, setUser] = useState({
-    email: "bbqa2.supabase@gmail.com",
-    password: "ewaewa@Ewa213",
+    email: "",
+    password: "",
   });
 
   const schema = z.object({
@@ -30,7 +31,12 @@ const SignInForm = () => {
     var targetName = e.target.name;
     var targetValue = e.target.value;
 
+    console.log(targetName);
     targetValue = targetValue.replace(" ", "");
+    targetValue = targetValue.replace(
+      /(?![*#0-9]+)[\p{Emoji}\p{Emoji_Modifier}\p{Emoji_Component}\p{Emoji_Modifier_Base}\p{Emoji_Presentation}]/gu,
+      ""
+    );
 
     setUser((prevState) => ({
       ...prevState,
@@ -56,10 +62,11 @@ const SignInForm = () => {
   };
   return (
     <div>
-      <h1>Login</h1>
+      <Toaster richColors position="top-right" />
+      <h1>Sign In</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
-          type="email"
+          type="text"
           name="email"
           value={user.email}
           placeholder="Email"
@@ -82,18 +89,22 @@ const SignInForm = () => {
             })}
           />
           {togglePwd ? (
-            <button onClick={togglePassword}>
+            <button type="button" onClick={togglePassword}>
               <Icon icon="mdi:eye-outline" />
             </button>
           ) : (
-            <button onClick={togglePassword}>
+            <button type="button" onClick={togglePassword}>
               <Icon icon="mdi:eye-off-outline" />
             </button>
           )}
+          <small className="form_error-message">
+            {errors.password?.message}
+          </small>
         </div>
-        <small className="form_error-message">{errors.password?.message}</small>
-        <button type="submit">Sign In</button>
         <div>
+          <button type="submit" disabled={loading}>
+            {loading ? <Icon icon="line-md:loading-twotone-loop" /> : "Sign In"  }
+          </button>
           <small>Dont have an account?</small>
           <NavLink to="/sign-up">Sign Up</NavLink>
         </div>

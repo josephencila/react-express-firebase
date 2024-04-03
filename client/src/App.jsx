@@ -29,7 +29,7 @@ function App() {
           <Route element={<PublicRoute />}>
             
             <Route element={<PasswordValidationProvider />}>
-              <Route path="/sign-up" element={<SignUpPage />} />
+              <Route path="/sign-up"  element={<SignUpPage />} />
             </Route>
 
             <Route path="/sign-in" element={<SignInPage />} />

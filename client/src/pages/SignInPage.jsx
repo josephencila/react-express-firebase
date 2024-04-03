@@ -1,16 +1,9 @@
-import { Toaster } from "sonner";
-import { useAuth } from "../hooks/useAuth";
+import SignInForm from "../component/form/SignInForm";
 
 const SignInPage = () => {
-  const { signIn } = useAuth();
-
-
-
   return (
     <div>
-      <Toaster richColors position="top-right" />
-      <h1>Sign In</h1>
-      <button onClick={signIn}>Sign In</button>
+      <SignInForm />
     </div>
   );
 };

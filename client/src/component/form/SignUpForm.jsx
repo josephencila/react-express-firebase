@@ -78,9 +78,11 @@ const SignUpForm = () => {
     if (noSpaceAllowed.includes(targetName)) {
       targetValue = targetValue.replace(" ", "");
     }
-      
 
-    targetValue =targetValue.replace(/(?![*#0-9]+)[\p{Emoji}\p{Emoji_Modifier}\p{Emoji_Component}\p{Emoji_Modifier_Base}\p{Emoji_Presentation}]/gu, '')
+    targetValue = targetValue.replace(
+      /(?![*#0-9]+)[\p{Emoji}\p{Emoji_Modifier}\p{Emoji_Component}\p{Emoji_Modifier_Base}\p{Emoji_Presentation}]/gu,
+      ""
+    );
 
     setUser((prevState) => ({
       ...prevState,
@@ -93,28 +95,31 @@ const SignUpForm = () => {
   };
 
   const onSubmit = () => {
-    console.log(user);
-    // signUp(user.email, user.password);
+    signUp(user.fullname, user.email, user.password);
   };
 
   return (
     <div>
       <h1>Signup</h1>
-
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="fullname"
-          name="fullname"
-          value={user.fullname}
-          placeholder="Full Name"
-          autoComplete="off"
-          {...register("fullname", {
-            onChange: onChange,
-          })}
-        />
-        <small className="form_error-message">{errors.fullname?.message}</small>
-
         <div>
+          <label htmlFor="fullname">Full Name</label>
+          <input
+            type="fullname"
+            name="fullname"
+            value={user.fullname}
+            placeholder="Full Name"
+            autoComplete="off"
+            {...register("fullname", {
+              onChange: onChange,
+            })}
+          />
+          <small className="form_error-message">
+            {errors.fullname?.message}
+          </small>
+        </div>
+        <div>
+          <label htmlFor="email">Email</label>
           <input
             type="text"
             name="email"
@@ -129,6 +134,7 @@ const SignUpForm = () => {
         </div>
 
         <div>
+          <label htmlFor="password">Password</label>
           <input
             type={togglePwd ? "text" : "password"}
             name="password"
@@ -148,11 +154,13 @@ const SignUpForm = () => {
               <Icon icon="mdi:eye-off-outline" />
             </button>
           )}
+          <small className="form_error-message">
+            {errors.password?.message}
+          </small>
         </div>
-        <small className="form_error-message">{errors.password?.message}</small>
         <PasswordValidationCard />
-        <button type="submit">Signup</button>
         <div>
+          <button type="submit">Signup</button>
           <small>Already have an account?</small>
           <NavLink to="/sign-in">Sign In</NavLink>
         </div>
