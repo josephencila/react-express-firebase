@@ -1,7 +1,8 @@
 const admin = require('../configs/firebaseConfig')
 
 const firebaseMW = async (req, res, next) => {
-
+    
+    console.log('fb-midware',req.headers.authorization)
 
     const reqHeader = req.headers.authorization || req.headers.Authorization
 

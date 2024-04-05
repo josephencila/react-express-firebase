@@ -37,7 +37,7 @@ export function AuthContextProvider({ children }) {
       await updateProfile(response?.user, {
         displayName: fullname,
       });
-
+      
       await sendEmailVerification(response?.user);
     } catch (error) {
       let errorMessage = "";
@@ -121,6 +121,7 @@ export function AuthContextProvider({ children }) {
       if (user && !user.emailVerified) {
         navigate("/verify");
       }
+      // console.log(user?.accessToken)
       setIsAuth(user ? true : false);
       setAuthUser(user);
       setSpinner(false);

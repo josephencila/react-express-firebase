@@ -1,5 +1,7 @@
 import { Toaster } from "sonner";
 import { useAuth } from "../hooks/useAuth";
+import PdfContainer from "../component/upload/PdfContainer";
+import "@uploadthing/react/styles.css";
 
 const ProfilePage = () => {
   const { authUser } = useAuth();
@@ -24,13 +26,18 @@ const ProfilePage = () => {
     }
   };
 
+  const capitalizeName = (name) => {
+    const cap = name.split(' ').map( w =>  w[0].toUpperCase()+ w.substring(1)).join(' ')
+    return cap;
+  };
+
   return (
     <div>
       <Toaster richColors position="top-right" />
       <h1>Profile</h1>
-      <h2>Welcome back {authUser?.email}</h2>
-        
-        <button onClick={callRequest}>Call A Request</button>
+      <h2>Welcome back {capitalizeName(authUser?.displayName)}</h2>
+      <PdfContainer />
+      <button onClick={callRequest}>Call A Request</button>
     </div>
   );
 };

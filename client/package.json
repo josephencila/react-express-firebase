@@ -12,6 +12,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@iconify/react": "^4.1.1",
+    "@uploadthing/react": "^6.4.1",
     "firebase": "^10.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

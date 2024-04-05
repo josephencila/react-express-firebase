@@ -12,12 +12,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@uploadthing/react": "^6.4.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "firebase-admin": "^12.0.0",
     "morgan": "^1.10.0",
     "pg": "^8.11.4",
+    "uploadthing": "^6.7.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {

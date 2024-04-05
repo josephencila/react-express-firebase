@@ -73,6 +73,7 @@ const SignUpForm = () => {
   const onChange = (e) => {
     var targetName = e.target.name;
     var targetValue = e.target.value;
+    
     var noSpaceAllowed = ["email", "password"];
     console.log(targetName);
     if (noSpaceAllowed.includes(targetName)) {
