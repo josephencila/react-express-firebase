@@ -1,17 +1,16 @@
 import { Outlet } from "react-router-dom";
-import PublicTopNavBar from "./component/navigation/PublicTopNavBar";
-import { useAuth } from "./hooks/useAuth";
-import PrivateTopNavBar from "./component/navigation/PrivateTopNavBar";
+import { Toaster } from "sonner";
+import MenuBar from "./component/navigation/MenuBar";
 
 const RootLayout = () => {
-  const { isAuth } = useAuth();
   return (
-    <div className="root-layout">
-      <nav>{isAuth ? <PrivateTopNavBar /> : <PublicTopNavBar />}</nav>
-      <main>
+    <>
+      <Toaster position="top-right" richColors />
+      <div className="grid grid-cols-[1fr] grid-rows-[60px_1fr] h-full w-full ">
+        <MenuBar />
         <Outlet />
-      </main>
-    </div>
+      </div>
+    </>
   );
 };
 

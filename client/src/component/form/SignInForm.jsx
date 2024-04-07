@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +12,7 @@ import { Toaster } from "sonner";
 const SignInForm = () => {
   const { signIn, loading } = useAuth();
 
-  const [togglePwd, setTogglePwd] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -53,63 +53,87 @@ const SignInForm = () => {
     mode: "onChange",
   });
 
-  const togglePassword = () => {
-    setTogglePwd(!togglePwd);
-  };
-
   const onSubmit = () => {
     signIn(user.email, user.password);
   };
+
+  const btnStatus = useMemo(() => {
+    return loading ? <Icon icon="line-md:loading-twotone-loop" /> : "Sign In";
+  }, [loading]);
   return (
-    <div>
-      <Toaster richColors position="top-right" />
-      <h1>Sign In</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="border border-solid h-auto min-w-[320px] max-w-[320px] flex flex-col gap-3 p-2"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="flex flex-col gap-1 w-full h-auto">
+        <h1 className="text-3xl font-bold">Welcome back</h1>
+        <small>Sign-in to your account</small>
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="email">Email</label>
         <input
           type="text"
           name="email"
+          placeholder="example@email.com"
+          className="h-10 p-2 border border-slate-300"
           value={user.email}
-          placeholder="Email"
           onChange={onChange}
           autoComplete="off"
           {...register("email", {
             onChange: onChange,
           })}
         />
-        <small className="form_error-message">{errors.email?.message}</small>
-        <div>
+        <small className="text-red-500">{errors.email?.message}</small>
+      </div>
+      <div className="flex flex-col gap-1">
+        <div className="flex flex-row items-center justify-between">
+          <label htmlFor="password">Password</label>
+          <NavLink to="#" className="text-sm hover:underline">
+            Forgot Password?
+          </NavLink>
+        </div>
+        <div className="relative grid grid-cols-[1fr_50px]  border border-slate-300  rounded-[1.5px] [&:has(:focus-visible)]:outline outline-2  ">
           <input
-            type={togglePwd ? "text" : "password"}
+            type={toggle ? "text" : "password"}
             name="password"
+            placeholder="••••••••••••"
+            className="h-10 outline-none p-2"
             value={user.password}
-            placeholder="Password"
             autoComplete="off"
             {...register("password", {
               onChange: onChange,
             })}
           />
-          {togglePwd ? (
-            <button type="button" onClick={togglePassword}>
-              <Icon icon="mdi:eye-outline" />
-            </button>
-          ) : (
-            <button type="button" onClick={togglePassword}>
-              <Icon icon="mdi:eye-off-outline" />
-            </button>
-          )}
-          <small className="form_error-message">
-            {errors.password?.message}
-          </small>
-        </div>
-        <div>
-          <button type="submit" disabled={loading}>
-            {loading ? <Icon icon="line-md:loading-twotone-loop" /> : "Sign In"  }
+          <button
+            type="button"
+            className="bg-white hover:bg-slate-200 flex justify-center items-center"
+            onClick={() => setToggle(!toggle)}
+          >
+            <Icon
+              icon={toggle ? "mdi:eye-outline" : "mdi:eye-off-outline"}
+              className="h-5 w-5"
+            />
           </button>
-          <small>Dont have an account?</small>
-          <NavLink to="/sign-up">Sign Up</NavLink>
         </div>
-      </form>
-    </div>
+        <small className="text-red-500">{errors.password?.message}</small>
+      </div>
+
+      <div className="flex flex-col gap-3 justify-center items-center">
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-sky-500 w-full h-10 text-white hover:opacity-85"
+        >
+          {btnStatus}
+        </button>
+        <span className="text-sm flex gap-1">
+          Don&apos;t have an account?
+          <NavLink to="/sign-up" className="hover:underline">
+            Sign Up
+          </NavLink>
+        </span>
+      </div>
+    </form>
   );
 };
 

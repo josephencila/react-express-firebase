@@ -1,8 +1,8 @@
 const Welcome= () => {
   return (
-    <div>
+    <main>
       <h1>WelcomePage to this Website</h1>
-    </div>
+    </main>
   );
 };
 

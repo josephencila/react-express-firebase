@@ -121,7 +121,7 @@ export function AuthContextProvider({ children }) {
       if (user && !user.emailVerified) {
         navigate("/verify");
       }
-      // console.log(user?.accessToken)
+    //  console.log(user?.accessToken)
       setIsAuth(user ? true : false);
       setAuthUser(user);
       setSpinner(false);
@@ -131,6 +131,7 @@ export function AuthContextProvider({ children }) {
   }, [navigate]);
 
   return (
+    
     <AuthContext.Provider
       value={{
         signUp,

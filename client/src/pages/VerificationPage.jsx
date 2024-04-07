@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 const VerificationPage = () => {
   const { authUser, resendEmailVerification } = useAuth();
   return (
-    <div>
+    <main>
       <h1>Please verify your email</h1>
       <Icon icon="ic:baseline-email" />
       <span>You&apos;re almost there! We sent an email to</span>
@@ -17,7 +17,7 @@ const VerificationPage = () => {
       <button onClick={resendEmailVerification}>
         Resend Verification Email
       </button>
-    </div>
+    </main>
   );
 };
 
