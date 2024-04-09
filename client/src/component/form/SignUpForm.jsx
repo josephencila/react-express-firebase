@@ -29,11 +29,12 @@ const SignUpForm = () => {
       .min(1, { message: "Full Name is a required field" })
       .superRefine((data, ctx) => {
         const namesWithSpaceOnly = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+
         if (!namesWithSpaceOnly.test(data)) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message:
-              "Full Name must only contain single space between names. Numbers and special characters are also not allowed.",
+              "Name must contain alphabetical characters and a single space between names",
           });
         } else {
           return;
@@ -100,98 +101,96 @@ const SignUpForm = () => {
   }, [loading]);
 
   return (
-   
-      <form
-        className="h-auto min-w-[320px] max-w-[320px] flex flex-col gap-3 p-2 border border-solid"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="flex flex-col gap-1 w-full h-auto">
-          <h1 className="text-3xl font-bold">Sign up free</h1>
-          <small>Create a new account</small>
-        </div>
-        <div className="flex flex-col gap-1">
-          <label htmlFor="fullname">Name</label>
-          <input
-            type="text"
-            name="fullname"
-            placeholder="John Doe"
-            className="h-10 p-2 border border-slate-300"
-            value={user.fullname}
-            onChange={onChange}
-            autoComplete="off"
-            {...register("fullname", {
-              onChange: onChange,
-            })}
-          />
-          <small className="text-red-500">{errors.fullname?.message}</small>
-        </div>
+    <form
+      className="h-auto min-w-[320px] max-w-[320px] flex flex-col gap-3 p-2 "
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="flex flex-col gap-1 w-full h-auto">
+        <h1 className="text-3xl font-bold">Sign up free</h1>
+        <small>Create a new account</small>
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="fullname">Name</label>
+        <input
+          type="text"
+          name="fullname"
+          placeholder="John Doe"
+          className="h-10 p-2 border border-slate-300"
+          value={user.fullname}
+          onChange={onChange}
+          autoComplete="off"
+          {...register("fullname", {
+            onChange: onChange,
+          })}
+        />
+        <small className="text-red-500">{errors.fullname?.message}</small>
+      </div>
 
-        <div className="flex flex-col gap-1">
-          <label htmlFor="email">Email</label>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="email">Email</label>
+        <input
+          type="text"
+          name="email"
+          placeholder="example@email.com"
+          className="h-10 p-2 border border-slate-300"
+          value={user.email}
+          onChange={onChange}
+          autoComplete="off"
+          {...register("email", {
+            onChange: onChange,
+          })}
+        />
+        <small className="text-red-500">{errors.email?.message}</small>
+      </div>
+      <div className="flex flex-col gap-1">
+        <div className="flex flex-row items-center justify-between">
+          <label htmlFor="password">Password</label>
+          <NavLink to="#" className="text-sm hover:underline">
+            Forgot Password?
+          </NavLink>
+        </div>
+        <div className="relative grid grid-cols-[1fr_50px]  border border-slate-300  rounded-[1.5px] [&:has(:focus-visible)]:outline outline-2  ">
           <input
-            type="text"
-            name="email"
-            placeholder="example@email.com"
-            className="h-10 p-2 border border-slate-300"
-            value={user.email}
-            onChange={onChange}
+            type={toggle ? "text" : "password"}
+            name="password"
+            placeholder="••••••••••••"
+            className="h-10 outline-none p-2"
+            value={user.password}
             autoComplete="off"
-            {...register("email", {
+            {...register("password", {
               onChange: onChange,
             })}
           />
-          <small className="text-red-500">{errors.email?.message}</small>
-        </div>
-        <div className="flex flex-col gap-1">
-          <div className="flex flex-row items-center justify-between">
-            <label htmlFor="password">Password</label>
-            <NavLink to="#" className="text-sm hover:underline">
-              Forgot Password?
-            </NavLink>
-          </div>
-          <div className="relative grid grid-cols-[1fr_50px]  border border-slate-300  rounded-[1.5px] [&:has(:focus-visible)]:outline outline-2  ">
-            <input
-              type={toggle ? "text" : "password"}
-              name="password"
-              placeholder="••••••••••••"
-              className="h-10 outline-none p-2"
-              value={user.password}
-              autoComplete="off"
-              {...register("password", {
-                onChange: onChange,
-              })}
-            />
-            <button
-              type="button"
-              className="bg-white hover:bg-slate-200 flex justify-center items-center"
-              onClick={() => setToggle(!toggle)}
-            >
-              <Icon
-                icon={toggle ? "mdi:eye-outline" : "mdi:eye-off-outline"}
-                className="h-5 w-5"
-              />
-            </button>
-          </div>
-          <small className="text-red-500">{errors.password?.message}</small>
-        </div>
-        <PasswordValidationCard />
-        <div className="flex flex-col gap-3 justify-center items-center">
           <button
-            type="submit"
-            disabled={loading}
-            className="bg-sky-500 w-full h-10 text-white hover:opacity-85"
+            type="button"
+            className="bg-white hover:bg-slate-200 flex justify-center items-center"
+            onClick={() => setToggle(!toggle)}
           >
-            {btnStatus}
+            <Icon
+              icon={toggle ? "mdi:eye-outline" : "mdi:eye-off-outline"}
+              className="h-5 w-5"
+            />
           </button>
-          <span className="text-sm flex gap-1">
-            Already have an account?
-            <NavLink to="/sign-in" className="hover:underline">
-              Sign In
-            </NavLink>
-          </span>
         </div>
-      </form>
-   
+        <small className="text-red-500">{errors.password?.message}</small>
+      </div>
+      <PasswordValidationCard />
+      <div className="flex flex-col gap-3 justify-center items-center">
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-sky-500 w-full h-10 text-white hover:opacity-85  flex justify-center items-center"
+        >
+          {btnStatus}
+        </button>
+        <span className="text-sm flex gap-1">
+          Already have an account?
+          <NavLink to="/sign-in" className="hover:underline">
+            Sign In
+          </NavLink>
+        </span>
+      </div>
+    </form>
   );
 };
 

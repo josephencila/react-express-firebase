@@ -26,21 +26,10 @@ const ProfilePage = () => {
     }
   };
 
-  const capitalizeName = (name) => {
-    const cap = name
-      .split(" ")
-      .map((n) => n[0].toUpperCase() + n.substring(1))
-      .join(" ");
-    return cap;
-  };
 
   return (
     <main className="bg-sky-50 h-dvh-60">
-      <Toaster richColors position="top-right" />
-      <h1>Profile</h1>
-      <h2>Welcome back {capitalizeName(authUser?.displayName)}</h2>
-      <PdfContainer />
-      <button onClick={callRequest}>Call A Request</button>
+      
     </main>
   );
 };

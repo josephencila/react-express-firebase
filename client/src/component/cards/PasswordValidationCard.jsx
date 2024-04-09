@@ -17,7 +17,7 @@ const PasswordValidationCard = () => {
     return (stats) => (stats ? "bx:check-circle" : "bx:circle");
   }, []);
   const colorStatus = useMemo(() => {
-    return (stats) => (stats ? "text-green-400" : "text-slate-500");
+    return (stats) => (stats ? "text-green-500" : "text-slate-500");
   }, []);
 
   return (

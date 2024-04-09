@@ -12,6 +12,12 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@iconify/react": "^4.1.1",
+    "@tiptap/extension-bullet-list": "^2.2.6",
+    "@tiptap/extension-list-item": "^2.2.6",
+    "@tiptap/extension-text-style": "^2.2.6",
+    "@tiptap/pm": "^2.2.6",
+    "@tiptap/react": "^2.2.6",
+    "@tiptap/starter-kit": "^2.2.6",
     "@uploadthing/react": "^6.4.1",
     "firebase": "^10.10.0",
     "react": "^18.2.0",

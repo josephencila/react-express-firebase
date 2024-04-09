@@ -18,6 +18,7 @@ import PrivateRoute from "./route/PrivateRoute";
 import PublicRoute from "./route/PublicRoute";
 import VerificationPage from "./pages/VerificationPage";
 import { PasswordValidationProvider } from "./context/PasswordValidationContextProvider";
+import Employer from "./pages/Employer";
 
 function App() {
   const router = createBrowserRouter(
@@ -27,9 +28,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
 
           <Route element={<PublicRoute />}>
-            
             <Route element={<PasswordValidationProvider />}>
-              <Route path="/sign-up"  element={<SignUpPage />} />
+              <Route path="/sign-up" element={<SignUpPage />} />
             </Route>
 
             <Route path="/sign-in" element={<SignInPage />} />
@@ -37,6 +37,7 @@ function App() {
 
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/employer" element={<Employer />} />
             <Route path="/verify" element={<VerificationPage />} />
           </Route>
 

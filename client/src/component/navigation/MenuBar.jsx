@@ -46,7 +46,7 @@ const MenuBar = () => {
   };
 
   return (
-    <nav className="w-full h-[60px] z-10 b-blue">
+    <nav className="w-full h-[60px] z-10 b-blue border border-solid">
       <ul
         className=" w-full h-full px-5 py-3 m-0 list-none grid grid-cols-[1fr_50px] grid-rows-[1fr]
        md:grid-cols-[1fr_repeat(3,auto)] md:gap-2"
@@ -64,11 +64,11 @@ const MenuBar = () => {
         </li>
         {navLinks.map((link, idx) => {
           return (
-            <li key={idx} className="hidden md:block  p-1 ">
+            <li key={idx} className="hidden md:block  p-1">
               <button
                 type="button"
                 onClick={() => handleNav(link.name, link.path)}
-                className="text-sm font-bold   hover:underline"
+                className="text-sm font-bold   hover:underline " 
               >
                 {link.name}
               </button>
@@ -96,7 +96,7 @@ const MenuBar = () => {
             <li key={idx} className=" flex items-center justify-center  ">
               <button
                 type="button"
-                className="text-sm font-bold  hover:underline"
+                className="text-sm font-bold  hover:underline "
                 onClick={() => handleNav(link.name, link.path)}
               >
                 {link.name}

@@ -31,7 +31,6 @@ const SignInForm = () => {
     var targetName = e.target.name;
     var targetValue = e.target.value;
 
-    console.log(targetName);
     targetValue = targetValue.replace(" ", "");
     targetValue = targetValue.replace(
       /(?![*#0-9]+)[\p{Emoji}\p{Emoji_Modifier}\p{Emoji_Component}\p{Emoji_Modifier_Base}\p{Emoji_Presentation}]/gu,
@@ -62,7 +61,7 @@ const SignInForm = () => {
   }, [loading]);
   return (
     <form
-      className="border border-solid h-auto min-w-[320px] max-w-[320px] flex flex-col gap-3 p-2"
+      className=" h-auto min-w-[320px] max-w-[320px] flex flex-col gap-3 p-2"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-1 w-full h-auto">
@@ -122,7 +121,7 @@ const SignInForm = () => {
         <button
           type="submit"
           disabled={loading}
-          className="bg-sky-500 w-full h-10 text-white hover:opacity-85"
+          className="bg-sky-500 w-full h-10 text-white hover:opacity-85 flex justify-center items-center"
         >
           {btnStatus}
         </button>
