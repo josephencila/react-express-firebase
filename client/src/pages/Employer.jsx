@@ -2,28 +2,28 @@ import { useState } from "react";
 import Editor from "../component/content/Editor";
 
 const Employer = () => {
-  const [content, setContent] = useState(
-    "<p><strong>Hello World,</strong></p><p>This Is a Demo Use of The Editor</p><p></p><p>Try Your Self like<u> UnderLine</u></p><p>or <s>Strike</s></p><p><strong>Bold is Gold</strong></p><p><em>Italic Is Elite</em></p><p><em><mark>Or You Want To Highlight</mark></em></p><p>Did I told You About Justify</p><p style='text-align: right'>Left</p><p>right</p><p style='text-align: center'>or even center</p><p>try The Link &amp; visit <a target='_blank' rel='noopener noreferrer nofollow' class='link link' href='https://github.com/mahmoud-bebars'>My GitHub</a></p><p style='text-align: center'></p>"
-  );
+  const [content, setContent] = useState("");
+  const [preview, setPreview] = useState(false);
   return (
     <div className=" w-full flex flex-col items-center justify-center gap-2">
-    <p className="text-xl text-center font-bold">TipTap Rich Text Editor</p>
-    <Editor content={content} setContent={setContent} />
-
-    {content !== "" && (
-      <>
-        <p className="text-xl text-center font-bold">Preview</p>
-        <div
-          onClick={() => console.log(content)}
-          className="bg-white w-full max-w-lg p-3 rounded-lg shadow-lg cursor-pointer"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-        <p className="text-sm text-center text-gray-400 underline font-normal">
-          Click onthe Container to console The output HTML
-        </p>
-      </>
-    )}
-  </div>
+      <p className="text-xl text-center font-bold">Job Description:</p>
+      <Editor content={content} setContent={setContent} />
+      <button type="button " onClick={() => setPreview(!preview)}>
+        Preview
+      </button>
+      {preview && (
+        <>
+          <p className="text-xl text-center font-bold">Preview</p>
+          <div
+            className=" w-full min-w-[320px] max-w-xl p-2 focus:outline-none min-h-[480px]  max-h-[480px] overflow-y-auto overflow-x-hidden
+             text-justify break-words
+            border border-solid border-slate-600 
+            "
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+        </>
+      )}
+    </div>
   );
 };
 

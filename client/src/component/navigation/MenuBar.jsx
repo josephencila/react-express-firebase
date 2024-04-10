@@ -21,6 +21,10 @@ const MenuBar = () => {
             path: "/profile",
           },
           {
+            name: "Employer",
+            path: "/employer",
+          },
+          {
             name: "Sign Out",
             path: "#",
           },
@@ -49,7 +53,7 @@ const MenuBar = () => {
     <nav className="w-full h-[60px] z-10 b-blue border border-solid">
       <ul
         className=" w-full h-full px-5 py-3 m-0 list-none grid grid-cols-[1fr_50px] grid-rows-[1fr]
-       md:grid-cols-[1fr_repeat(3,auto)] md:gap-2"
+       md:grid-cols-[1fr_repeat(4,auto)] md:gap-2"
       >
         <li className="flex  flex-row items-center">
           <button type="button " className="flex flex-row gap-1">
@@ -68,7 +72,7 @@ const MenuBar = () => {
               <button
                 type="button"
                 onClick={() => handleNav(link.name, link.path)}
-                className="text-sm font-bold   hover:underline " 
+                className="text-sm font-bold   hover:underline "
               >
                 {link.name}
               </button>
@@ -78,7 +82,7 @@ const MenuBar = () => {
       </ul>
       <ul
         className={`p-0 m-0 list-none  top-[0] left-[0] right-[0] bottom-[0] bg-white overflow-hidden
-        grid grid-cols-[1fr] grid-rows-[repeat(4,60px)] gap-1 md:hidden
+        grid grid-cols-[1fr] grid-rows-[repeat(5,60px)] gap-1 md:hidden
         ${toggle ? "fixed" : "hidden"}
     }`}
       >
