@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import PropTypes from "prop-types";
 const EditorMenuBar = (props) => {
-  const { editor, content, setContent } = props;
+  const { editor } = props;
 
   if (!editor) {
     return;
@@ -16,10 +16,7 @@ const EditorMenuBar = (props) => {
       <li className="flex justify-center">
         <button
           type="button"
-          onClick={() => {
-            editor.chain().focus().toggleBold().run();
-            setContent(prev=> prev + "<b>bold</b>");
-          }}
+          onClick={() => editor.chain().focus().toggleBold().run()}
           className={editor.isActive("bold") ? activeButton : inActiveButton}
         >
           <Icon icon="ri:bold" className="h-5 w-5" />
@@ -28,11 +25,7 @@ const EditorMenuBar = (props) => {
       <li className="flex justify-center">
         <button
           type="button"
-          onClick={() => {
-            editor.chain().focus().toggleItalic().run()
-            setContent(prev=> prev + "<i>italic</i>");
-          }}
-       
+          onClick={() => editor.chain().focus().toggleItalic().run()}
           className={editor.isActive("italic") ? activeButton : inActiveButton}
         >
           <Icon icon="ri:italic" className="h-5 w-5" />
@@ -41,7 +34,6 @@ const EditorMenuBar = (props) => {
       <li className="flex justify-center">
         <button
           type="button"
-          
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={
             editor.isActive("bulletList") ? activeButton : inActiveButton

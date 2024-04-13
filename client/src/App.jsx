@@ -19,6 +19,7 @@ import PublicRoute from "./route/PublicRoute";
 import VerificationPage from "./pages/VerificationPage";
 import { PasswordValidationProvider } from "./context/PasswordValidationContextProvider";
 import Employer from "./pages/Employer";
+import { JobMultiStepsFormContextProvider } from "./context/JobMultiStepsFormContextProvider";
 
 function App() {
   const router = createBrowserRouter(
@@ -37,7 +38,9 @@ function App() {
 
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/employer" element={<Employer />} />
+            <Route element={<JobMultiStepsFormContextProvider />}>
+              <Route path="/employer" element={<Employer />} />
+            </Route>
             <Route path="/verify" element={<VerificationPage />} />
           </Route>
 

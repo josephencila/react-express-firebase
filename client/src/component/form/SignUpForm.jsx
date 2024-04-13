@@ -26,7 +26,7 @@ const SignUpForm = () => {
   const schema = z.object({
     fullname: z
       .string()
-      .min(1, { message: "Full Name is a required field" })
+      .min(1, { message: "Name is a required field" })
       .superRefine((data, ctx) => {
         const namesWithSpaceOnly = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
 

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import EditorMenuBar from "./EditorMenuBar";
 
 import StarterKit from "@tiptap/starter-kit";
-import { useEffect } from "react";
+
 const Editor = ({ content, setContent }) => {
   const editor = useEditor(
     {
@@ -40,13 +40,6 @@ const Editor = ({ content, setContent }) => {
     },
     []
   );
-
-  // useEffect(() => {
-  //   editor?.commands.setContent(content,
-  //     false, {
-  //         preserveWhitespace: false, //"full"
-  //     });
-  // }, [editor, content]);
 
   return (
     <div className="w-full h-full  grid grid-cols-[1fr] grid-rows-[40px_1fr] items-center justify-items-center p-2">

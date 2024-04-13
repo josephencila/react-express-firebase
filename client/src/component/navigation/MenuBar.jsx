@@ -5,11 +5,11 @@ import MainLogo from "../svg/MainLogo";
 import { useAuth } from "../../hooks/useAuth";
 
 const MenuBar = () => {
-  const [toggle, setToggle] = useState(false);
-
   const { isAuth, signOut } = useAuth();
   const navigate = useNavigate();
-  const navLinks = useMemo(() => {
+  const [toggle, setToggle] = useState(false);
+  
+  const memoizedNavLinks = useMemo(() => {
     return isAuth
       ? [
           {
@@ -41,6 +41,7 @@ const MenuBar = () => {
         ];
   }, [isAuth]);
 
+
   const handleNav = (name, path) => {
     setToggle(false);
     if (name === "Sign Out") {
@@ -66,7 +67,7 @@ const MenuBar = () => {
             <Icon icon="material-symbols:menu" className="h-6 w-6" />
           </button>
         </li>
-        {navLinks.map((link, idx) => {
+        {memoizedNavLinks.map((link, idx) => {
           return (
             <li key={idx} className="hidden md:block  p-1">
               <button
@@ -95,7 +96,7 @@ const MenuBar = () => {
             <Icon icon="material-symbols:close" className="h-6 w-6" />
           </button>
         </li>
-        {navLinks.map((link, idx) => {
+        {memoizedNavLinks.map((link, idx) => {
           return (
             <li key={idx} className=" flex items-center justify-center  ">
               <button
