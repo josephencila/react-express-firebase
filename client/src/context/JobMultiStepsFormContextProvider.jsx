@@ -1,16 +1,19 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Outlet } from "react-router-dom";
-const JobMultiStepsFormContext = createContext({});
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { enumOfJobTags } from "../utils/enumJobTags";
+import { enumPHCities } from "../utils/phCities";
+
+const JobMultiStepsFormContext = createContext({});
 
 export function JobMultiStepsFormContextProvider({ children }) {
   const [formData, setFormData] = useState({
     companyName: "",
     numOfEmployees: "",
-    jobTags: [],
+    jobTag: "",
     jobTitle: "",
     numOfVacancies: "",
     locationOfAds: "",
@@ -47,40 +50,6 @@ export function JobMultiStepsFormContextProvider({ children }) {
     "10+",
   ];
 
-  const enumOfJobTags = [
-    "",
-    "Accounting",
-    "Administration & Office Support",
-    "Advertising, Arts & Media",
-    "Banking & Financial Services",
-    "Call Center & Customer Service",
-    "CEO & General Management",
-    "Community Services & Development",
-    "Construction",
-    "Consulting & Strategy",
-    "Design & Architecture",
-    "Education & Training",
-    "Engineering",
-    "Farming, Animals & Conservation",
-    "Government & Defense",
-    "Healthcare & Medical",
-    "Hospitality & Tourism",
-    "Human Resources & Recruitment",
-    "Information & Communication Technology",
-    "Insurance & Superannuation",
-    "Legal",
-    "Manufacturing, Transport & Logistics",
-    "Marketing & Communications",
-    "Mining, Resource & Energy",
-    "Real Estate & Property",
-    "Retail & Consumer Products",
-    "Sales",
-    "Science & Technology",
-    "Self Employment",
-    "Sport & Recreation",
-    "Trades & Services",
-  ];
-
   const sliceEnumHelper = (slice, enums) => {
     const newEnums = enums.slice(slice).map((e) => {
       return e;
@@ -90,29 +59,37 @@ export function JobMultiStepsFormContextProvider({ children }) {
   };
 
   const slicedEnumOfEmployees = sliceEnumHelper(1, enumOfEmployees);
-  const slicedEnumOfJobTags = sliceEnumHelper(1, enumOfJobTags);
+  const slicedEnumOfJobTag = sliceEnumHelper(1, enumOfJobTags);
   const slicedEnumOfVacancies = sliceEnumHelper(1, enumOfVacancies);
-
- 
+  const slicedlocationOfAds = sliceEnumHelper(1, enumPHCities);
   const [steps, setSteps] = useState(1);
 
   const formDataSchema = z.object({
     companyName: z
       .string()
       .min(1, { message: "Company Name is a required field." }),
-    numOfEmployees: z.enum(slicedEnumOfEmployees,{
-      errorMap: ()=> ({message: 'Number of Employees is a required field.'})
+    numOfEmployees: z.enum(slicedEnumOfEmployees, {
+      errorMap: () => ({ message: "Number of Employees is a required field." }),
     }),
-    jobTags: z.enum(slicedEnumOfJobTags,{
-      errorMap: ()=> ({message: 'job Tags is a required field.'})
+    jobTags: z.enum(slicedEnumOfJobTag, {
+      errorMap: () => ({
+        message: "Job Tag is a required field.",
+      }),
     }),
-    jobTitle: z.number().min(1, { message: "Job Title is a required field." }),
-    numOfVacancies: z
-      .string()
-      .min(1, { message: "Number of Vacancies is a required field." }),
-    locationOfAds: z
-      .string()
-      .min(1, { message: "Location of Advertise is a required field." }),
+    // z
+    //   .array(z.string())
+    //   .min(1, { message: "Job Tags is a required field." }),
+    jobTitle: z.string().min(1, { message: "Job Title is a required field." }),
+    numOfVacancies: z.enum(slicedEnumOfVacancies, {
+      errorMap: () => ({
+        message: "Number of Vancancies is a required field.",
+      }),
+    }),
+    locationOfAds: z.enum(slicedlocationOfAds, {
+      errorMap: () => ({
+        message: "Location of Advertise is a required field.",
+      }),
+    }),
     schedule: z.date({ message: "Schedule is a required field." }),
     duration: z.date({ message: "Duration is a required field." }),
     pay: z.string().min(1, { message: "Pay is a required field." }),
@@ -127,11 +104,13 @@ export function JobMultiStepsFormContextProvider({ children }) {
 
   const {
     register,
-
     handleSubmit,
     trigger,
     formState: { errors, isSubmitting },
   } = useForm({
+    // defaultValues: {
+    //   jobTags: formData.jobTag,
+    // },
     resolver: zodResolver(formDataSchema),
     mode: "onChange",
   });
@@ -192,11 +171,21 @@ export function JobMultiStepsFormContextProvider({ children }) {
 
   const onChange = (e) => {
     const { name, value, checked } = e.target;
+    console.log(name, value, checked);
 
-   
-    const enums = ['jobTags']
-    const nonEnums = ['companyName','numOfEmployees']
-    
+    const enums = [""];
+    const nonEnums = [
+      "companyName",
+      "numOfEmployees",
+      "jobTag",
+      "jobTitle",
+      "numOfVacancies",
+      "locationOfAds",
+      "schedule",
+      "duration",
+      "pay",
+    ];
+
     if (enums.includes(name)) {
       if (checked) {
         setFormData((prev) => ({
@@ -217,8 +206,6 @@ export function JobMultiStepsFormContextProvider({ children }) {
         [name]: value,
       }));
     }
-
-   
   };
   const onSubmit = () => {
     console.log(formData);

@@ -5,3 +5,8 @@ export const capitalizeName = (name) => {
       .join(" ");
     return cap;
   };
+
+
+  export const sortAlpabhetically = (data) => {
+    return data.sort((a, b) => a.localeCompare(b));
+  };

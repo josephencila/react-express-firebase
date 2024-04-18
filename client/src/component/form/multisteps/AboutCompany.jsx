@@ -1,13 +1,8 @@
 import useJobMultiSteps from "../../../hooks/useJobMultiSteps";
 
 const AboutCompany = () => {
-  const {
-    formData,
-    register,
-    errors,
-    onChange,
-    enumOfEmployees,
-  } = useJobMultiSteps();
+  const { formData, register, errors, onChange, enumOfEmployees } =
+    useJobMultiSteps();
 
   return (
     <div className="flex flex-col">
@@ -27,11 +22,10 @@ const AboutCompany = () => {
         {...register("numOfEmployees", {
           onChange: onChange,
         })}
-          
       >
         {enumOfEmployees.map((e, idx) => {
           return (
-            <option value={e} key={idx} >
+            <option value={e} key={idx}>
               {e}
             </option>
           );

@@ -1,5 +1,6 @@
-import { useState } from "react";
 import useJobMultiSteps from "../../../hooks/useJobMultiSteps";
+import { sortAlpabhetically } from "../../../helper/helper";
+import { enumPHCities } from "../../../utils/phCities";
 
 const AboutBasicDetails = () => {
   const {
@@ -10,39 +11,17 @@ const AboutBasicDetails = () => {
     enumOfVacancies,
     enumOfJobTags,
   } = useJobMultiSteps();
- 
-  const sampleCB = [
-    {
-      name: "Choco",
-    },
-    {
-      name: "Iced Tea",
-    },
-  ];
+
+  const sortedCities = () => {
+    return sortAlpabhetically(enumPHCities);
+  };
   return (
     <div className="flex flex-col">
       <h1>Basic Details</h1>
-      {sampleCB.map((cb, idx) => {
-        return (
-          <div key={idx}>
-            <input
-              type="checkbox"
-              key={idx}
-              value={cb.name}
-              name="jobTags"
-              checked={formData?.jobTags[idx]}
-              {...register("jobTags", {
-                onChange: onChange,
-              })}
-            />
-            <label htmlFor="jobTags">{cb.name}</label>
-          </div>
-        );
-      })}
-      {/* <label htmlFor="jobTags">Job Tags:</label>
+      <label htmlFor="jobTag">Job Tag:</label>
       <select
-        name="jobTags"
-        {...register("jobTags", {
+        name="jobTag"
+        {...register("jobTag", {
           onChange: onChange,
         })}
       >
@@ -54,7 +33,24 @@ const AboutBasicDetails = () => {
           );
         })}
       </select>
-      <small className="text-red-500">{errors?.jobTags?.message}</small>
+      {/* {enumOfJobTags.map((e, idx) => {
+        return (
+          <div key={idx}>
+            <input
+              key={idx}
+              type="checkbox"
+              name="jobTag"
+              value={e}
+              checked={formData?.jobTag.includes(e)}
+              {...register("jobTag", {
+                onChange: onChange,
+              })}
+            />
+            <label htmlFor="checkbox">{e}</label>
+          </div>
+        );
+      })} */}
+      <span className="text-red-500">{errors?.jobTags?.message}</span>
 
       <label htmlFor="jobTitle">Job Title:</label>
       <input
@@ -81,8 +77,22 @@ const AboutBasicDetails = () => {
           );
         })}
       </select>
-      <small className="text-red-500">{errors?.numOfVacancies?.message}</small>
-   */}{" "}
+      <label htmlFor="locationOfAds">Location of Advertise:</label>
+      <select
+        name="locationOfAds"
+        {...register("locationOfAds", {
+          onChange: onChange,
+        })}
+      >
+        {sortedCities().map((e, idx) => {
+          return (
+            <option value={e} key={idx}>
+              {e}
+            </option>
+          );
+        })}
+      </select>
+      <small className="text-red-500">{errors?.locationOfAds?.message}</small>
     </div>
   );
 };
